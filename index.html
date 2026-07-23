@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>دعوة خطوبة عمر وروان 💍</title>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold-primary: #d4af37;
+            --gold-gradient: linear-gradient(135deg, #f3e5ab 0%, #d4af37 50%, #aa820a 100%);
+            --glass-bg: rgba(20, 16, 12, 0.75);
+            --border-gold: rgba(212, 175, 55, 0.35);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: #0a0908;
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* 🌫️ خلفية عميقة مع Blur ناعم */
+        .bg-blur {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at 50% 30%, #3a2b16 0%, #0a0908 70%);
+            z-index: -1;
+        }
+
+        .bg-blur::before {
+            content: '';
+            position: absolute;
+            top: -20%; left: -20%; width: 140%; height: 140%;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.15) 0%, transparent 60%);
+            filter: blur(60px);
+            animation: pulseBlur 8s ease-in-out infinite alternate;
+        }
+
+        @keyframes pulseBlur {
+            0% { transform: scale(0.9); opacity: 0.6; }
+            100% { transform: scale(1.1); opacity: 1; }
+        }
+
+        /* 🌹 تساقط الورود ببطء */
+        .rose-leaf {
+            position: fixed;
+            top: -10%;
+            font-size: 18px;
+            user-select: none;
+            pointer-events: none;
+            z-index: 1;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0.8; }
+            100% { transform: translateY(105vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* 💳 البطاقة الرئيسية - تكبير الحجم الأقصى لعرض الصورة بشكل أكبر */
+        .main-card {
+            width: 100%;
+            max-width: 500px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--border-gold);
+            border-radius: 28px;
+            padding: 25px 18px;
+            text-align: center;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 30px rgba(212, 175, 55, 0.1);
+            z-index: 10;
+            transition: all 0.5s ease;
+        }
+
+        /* 💌 الظرف والأنيميشن */
+        .envelope-container {
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        .envelope {
+            font-size: 50px;
+            filter: drop-shadow(0 4px 15px rgba(212, 175, 55, 0.4));
+            transition: transform 0.6s ease;
+        }
+
+        .sparkle-glow {
+            animation: goldGlow 0.9s forwards;
+        }
+
+        @keyframes goldGlow {
+            0% { transform: scale(1); filter: drop-shadow(0 0 5px #d4af37); }
+            50% { transform: scale(1.25) rotate(5deg); filter: drop-shadow(0 0 30px #fff) drop-shadow(0 0 20px #d4af37); }
+            100% { transform: scale(1); filter: drop-shadow(0 0 10px #d4af37); }
+        }
+
+        h2 {
+            font-family: 'Amiri', serif;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 30px;
+            margin-bottom: 8px;
+        }
+
+        p.sub-title {
+            font-size: 14px;
+            color: #d1c7bd;
+            margin-bottom: 25px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: center;
+        }
+
+        input[type="password"] {
+            width: 90%;
+            padding: 14px 20px;
+            border-radius: 50px;
+            border: 1px solid var(--border-gold);
+            background: rgba(0, 0, 0, 0.4);
+            color: #fff;
+            text-align: center;
+            font-size: 16px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        input[type="password"]:focus {
+            border-color: var(--gold-primary);
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+        }
+
+        .btn-gold {
+            background: var(--gold-gradient);
+            color: #120d03;
+            font-weight: 700;
+            padding: 14px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(212, 175, 55, 0.25);
+        }
+
+        .btn-gold:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
+        }
+
+        /* 🤍 رسالة الخطأ المخصصة */
+        .error-card {
+            display: none;
+            margin-top: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 16px;
+            padding: 15px;
+            color: #f3e5ab;
+            font-size: 14px;
+            line-height: 1.7;
+            animation: softFade 0.4s ease-in-out;
+        }
+
+        /* ❤️ شاشة الدعوة والصورة */
+        #content-section {
+            display: none;
+            animation: softFade 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes softFade {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .welcome-box {
+            background: rgba(212, 175, 55, 0.08);
+            border: 1px dashed var(--gold-primary);
+            padding: 14px 18px;
+            border-radius: 18px;
+            margin-bottom: 20px;
+            font-family: 'Amiri', serif;
+            font-size: 19px;
+            color: #fceecb;
+            line-height: 1.6;
+        }
+
+        .img-wrapper {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1.5px solid var(--gold-primary);
+            cursor: pointer;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+            transition: transform 0.4s ease;
+            background: #000;
+        }
+
+        .img-wrapper:hover {
+            transform: scale(1.01);
+        }
+
+        .img-wrapper img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: contain;
+        }
+
+        .zoom-badge {
+            position: absolute;
+            bottom: 12px;
+            right: 12px;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            color: #f3e5ab;
+            font-size: 12px;
+            padding: 5px 12px;
+            border-radius: 20px;
+            border: 1px solid var(--border-gold);
+        }
+
+        .location-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: linear-gradient(135deg, #1b5e20, #2e7d32);
+            color: #fff;
+            text-decoration: none;
+            padding: 15px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 16px;
+            border: 1px solid rgba(129, 199, 132, 0.4);
+            box-shadow: 0 6px 20px rgba(46, 125, 50, 0.35);
+            transition: all 0.3s ease;
+        }
+
+        .location-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(46, 125, 50, 0.5);
+        }
+
+        /* 🔍 Modal لتكبير الصورة بشاشة كاملة */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+            animation: softFade 0.3s ease;
+        }
+
+        .modal img {
+            max-width: 100%;
+            max-height: 95vh;
+            border-radius: 12px;
+            border: 1px solid var(--gold-primary);
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
+            object-fit: contain;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-blur"></div>
+
+    <!-- 🌹 الورود المتساقطة -->
+    <script>
+        for (let i = 0; i < 12; i++) {
+            let rose = document.createElement('div');
+            rose.className = 'rose-leaf';
+            rose.innerHTML = '🌹';
+            rose.style.left = Math.random() * 100 + 'vw';
+            rose.style.animationDuration = (Math.random() * 3 + 5) + 's';
+            rose.style.animationDelay = Math.random() * 4 + 's';
+            document.body.appendChild(rose);
+        }
+    </script>
+
+    <div class="main-card">
+        <!-- 🔐 شاشة الباسورد والظرف -->
+        <div id="auth-section">
+            <div class="envelope-container">
+                <div class="envelope" id="envelopeIcon">💌</div>
+            </div>
+            <h2>دعوة خاصة</h2>
+            <p class="sub-title">يرجى إدخال كلمة السر لرؤية تفاصيل الدعوة</p>
+            
+            <div class="input-group">
+                <input type="password" id="passInput" placeholder="Enter Password">
+                <button class="btn-gold" onclick="unlockEnvelope()">فتح الدعوة ✨</button>
+            </div>
+
+            <!-- 🤍 رسالة الخطأ المخصصة -->
+            <div id="errorCard" class="error-card">
+                🤍<br>
+                يبدو أن الدعوة ليست مخصصة لهذا الرمز.<br>
+                يرجى التأكد من كلمة المرور.
+            </div>
+        </div>
+
+        <!-- ❤️ شاشة الدعوة الأصلية -->
+        <div id="content-section">
+            <div class="welcome-box">
+                ❤️ يسعدنا ويشرفنا حضوركم لمشاركتنا أجمل لحظات العمر في حفل خطوبتنا ✨
+            </div>
+
+            <div class="img-wrapper" onclick="openModal()">
+                <!-- رابط الصورة المباشر عالي الدقة بدون تصغير -->
+                <img id="invitationImg" src="https://i.ibb.co/Fbp72Lt7/Whats-App-Image-2026-07-23-at-10-48-43-AM.jpg" alt="دعوة خطوبة عمر وروان">
+                <div class="zoom-badge">🔍 اضغط لتكبير الدعوة</div>
+            </div>
+
+            <a href="https://maps.app.goo.gl/ztxyGY8H2dyTcrB16" target="_blank" class="location-btn">
+                📍 Open Location (موقع القاعة)
+            </a>
+        </div>
+    </div>
+
+    <!-- 🔍 النافذة المكبرة للصورة -->
+    <div class="modal" id="imageModal" onclick="closeModal()">
+        <img src="https://i.ibb.co/Fbp72Lt7/Whats-App-Image-2026-07-23-at-10-48-43-AM.jpg" alt="دعوة مكبرة">
+    </div>
+
+    <script>
+        function unlockEnvelope() {
+            const input = document.getElementById('passInput').value.trim();
+            const envelope = document.getElementById('envelopeIcon');
+            const errorCard = document.getElementById('errorCard');
+            
+            if (input.toLowerCase() === "omar&rawan") {
+                errorCard.style.display = 'none';
+                
+                // أنيميشن اللمعة والفتح
+                envelope.classList.add('sparkle-glow');
+                envelope.innerHTML = '✨';
+
+                setTimeout(() => {
+                    document.getElementById('auth-section').style.display = 'none';
+                    document.getElementById('content-section').style.display = 'block';
+                }, 750);
+            } else {
+                errorCard.style.display = 'block';
+            }
+        }
+
+        function openModal() {
+            document.getElementById('imageModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('imageModal').style.display = 'none';
+        }
+
+        document.getElementById("passInput").addEventListener("keypress", function(e) {
+            if (e.key === "Enter") unlockEnvelope();
+        });
+    </script>
+</body>
+</html>
