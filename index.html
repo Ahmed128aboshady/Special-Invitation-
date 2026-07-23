@@ -107,7 +107,6 @@ transition: transform 0.8s ease 0.2s, z-index 0.2s ease 0.4s;
 z-index: 4;
 }
 
-/* 🕯️ الختم الشمعي الفاخر */
 .wax-seal {
 position: absolute;
 top: 85px;
@@ -157,21 +156,9 @@ transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.4s;
 z-index: 2;
 }
 
-/* 🔓 أنيميشن الفتح */
-.open .flap {
-transform: rotateX(180deg);
-z-index: 1;
-}
-
-.open .wax-seal {
-opacity: 0;
-pointer-events: none;
-}
-
-.open .paper {
-transform: translateX(-50%) translateY(-100px);
-z-index: 4;
-}
+.open .flap { transform: rotateX(180deg); z-index: 1; }
+.open .wax-seal { opacity: 0; pointer-events: none; }
+.open .paper { transform: translateX(-50%) translateY(-100px); z-index: 4; }
 
 .click-hint {
 margin-top: 30px;
@@ -192,10 +179,7 @@ animation: bounceHint 2s infinite;
 }
 
 /* 📜 شاشة الدعوة */
-#invite{
-display:none;
-animation:fade .9s ease-in-out;
-}
+#invite{ display:none; animation:fade .9s ease-in-out; }
 
 @keyframes fade{
 from{ opacity:0; transform:translateY(30px); }
@@ -207,7 +191,6 @@ from { opacity: 0; transform: translateY(-20px); }
 to { opacity: 1; transform: translateY(0); }
 }
 
-/* 📷 الصورة مع توهج فاخر وإطار مذهب */
 .img-container {
 position: relative;
 display: inline-block;
@@ -223,9 +206,44 @@ border: 2px solid rgba(212, 175, 55, 0.5);
 transition: transform 0.4s ease;
 }
 
+/* ⏳ تصميم العداد التنازلي */
+.countdown-container {
+display: flex;
+justify-content: center;
+gap: 15px;
+margin: 25px 0;
+direction: ltr;
+}
+
+.time-box {
+background: linear-gradient(135deg, #ffffff, #fdf6e3);
+border: 1.5px solid #d4af37;
+border-radius: 12px;
+width: 70px;
+padding: 10px 0;
+box-shadow: 0 5px 15px rgba(212, 175, 55, 0.15);
+display: flex;
+flex-direction: column;
+align-items: center;
+}
+
+.time-box span {
+font-size: 26px;
+font-weight: 700;
+color: #8a692b;
+line-height: 1.2;
+}
+
+.time-box p {
+font-size: 13px;
+color: #b7862d;
+font-weight: 600;
+margin-top: 2px;
+}
+
 .btn{
 display:inline-block;
-margin-top:25px;
+margin-top:15px;
 padding:16px 35px;
 background:linear-gradient(135deg, #b7862d, #8a692b);
 color:white;
@@ -257,7 +275,7 @@ font-size:18px;
 font-weight: 600;
 }
 
-/* 🌹 بتلات الورد المتساقطة فوق الصفحة والصورة */
+/* 🌹 بتلات الورد المتساقطة */
 .petal {
 position: fixed;
 top: -10%;
@@ -269,17 +287,9 @@ animation: petalFall linear infinite;
 }
 
 @keyframes petalFall {
-0% {
-    transform: translateY(0) rotate(0deg) translateX(0);
-    opacity: 0.9;
-}
-50% {
-    transform: translateY(50vh) rotate(180deg) translateX(25px);
-}
-100% {
-    transform: translateY(105vh) rotate(360deg) translateX(-25px);
-    opacity: 0;
-}
+0% { transform: translateY(0) rotate(0deg) translateX(0); opacity: 0.9; }
+50% { transform: translateY(50vh) rotate(180deg) translateX(25px); }
+100% { transform: translateY(105vh) rotate(360deg) translateX(-25px); opacity: 0; }
 }
 
 @media (max-width: 480px) {
@@ -287,6 +297,8 @@ animation: petalFall linear infinite;
 .envelope::before, .envelope::after { border-left-width: 125px; border-right-width: 125px; }
 .flap { border-left-width: 125px; border-right-width: 125px; }
 .quote { font-size: 22px; }
+.time-box { width: 60px; }
+.time-box span { font-size: 22px; }
 }
 </style>
 </head>
@@ -329,6 +341,14 @@ animation: petalFall linear infinite;
 
     <div class="img-container">
         <img src="https://i.ibb.co/Fbp72Lt7/Whats-App-Image-2026-07-23-at-10-48-43-AM.jpg" alt="دعوة خطوبة عمر وروان">
+    </div>
+
+    <!-- ⏳ العداد التنازلي -->
+    <div class="countdown-container" id="countdown">
+        <div class="time-box"><span id="seconds">00</span><p>ثانية</p></div>
+        <div class="time-box"><span id="minutes">00</span><p>دقيقة</p></div>
+        <div class="time-box"><span id="hours">00</span><p>ساعة</p></div>
+        <div class="time-box"><span id="days">00</span><p>يوم</p></div>
     </div>
 
     <a class="btn" target="_blank" href="https://maps.app.goo.gl/ztxyGY8H2dyTcrB16">
@@ -374,6 +394,29 @@ function openInvite(){
         window.scrollTo({top:0,behavior:'smooth'});
     }, 1200);
 }
+
+// ⏳ برمجة العداد التنازلي (مضبوط على 14 أغسطس 2026 الساعة 8:00 مساءً)
+const countdownDate = new Date("Aug 14, 2026 20:00:00").getTime();
+
+const x = setInterval(function() {
+    const now = new Date().getTime();
+    const distance = countdownDate - now;
+
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    document.getElementById("days").innerHTML = days < 10 ? "0" + days : days;
+    document.getElementById("hours").innerHTML = hours < 10 ? "0" + hours : hours;
+    document.getElementById("minutes").innerHTML = minutes < 10 ? "0" + minutes : minutes;
+    document.getElementById("seconds").innerHTML = seconds < 10 ? "0" + seconds : seconds;
+
+    if (distance < 0) {
+        clearInterval(x);
+        document.getElementById("countdown").innerHTML = "<h3 style='color: #8a692b; font-family: Amiri; font-size: 26px; margin: 10px 0;'>اليوم هو الموعد المنتظر! ❤️</h3>";
+    }
+}, 1000);
 </script>
 
 </body>
