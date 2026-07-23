@@ -310,18 +310,10 @@
                 <div class="envelope" id="envelopeIcon">💌</div>
             </div>
             <h2>دعوة خاصة</h2>
-            <p class="sub-title">يرجى إدخال كلمة السر لرؤية تفاصيل الدعوة</p>
+            <p class="sub-title">يسعدنا ويشرفنا حضوركم</p>
             
             <div class="input-group">
-                <input type="password" id="passInput" placeholder="Enter Password">
                 <button class="btn-gold" onclick="unlockEnvelope()">فتح الدعوة ✨</button>
-            </div>
-
-            <!-- 🤍 رسالة الخطأ المخصصة -->
-            <div id="errorCard" class="error-card">
-                🤍<br>
-                يبدو أن الدعوة ليست مخصصة لهذا الرمز.<br>
-                يرجى التأكد من كلمة المرور.
             </div>
         </div>
 
@@ -350,24 +342,16 @@
 
     <script>
         function unlockEnvelope() {
-            const input = document.getElementById('passInput').value.trim();
             const envelope = document.getElementById('envelopeIcon');
-            const errorCard = document.getElementById('errorCard');
             
-            if (input.toLowerCase() === "omar&rawan") {
-                errorCard.style.display = 'none';
-                
-                // أنيميشن اللمعة والفتح
-                envelope.classList.add('sparkle-glow');
-                envelope.innerHTML = '✨';
+            // أنيميشن اللمعة والفتح
+            envelope.classList.add('sparkle-glow');
+            envelope.innerHTML = '✨';
 
-                setTimeout(() => {
-                    document.getElementById('auth-section').style.display = 'none';
-                    document.getElementById('content-section').style.display = 'block';
-                }, 750);
-            } else {
-                errorCard.style.display = 'block';
-            }
+            setTimeout(() => {
+                document.getElementById('auth-section').style.display = 'none';
+                document.getElementById('content-section').style.display = 'block';
+            }, 750);
         }
 
         function openModal() {
@@ -377,10 +361,6 @@
         function closeModal() {
             document.getElementById('imageModal').style.display = 'none';
         }
-
-        document.getElementById("passInput").addEventListener("keypress", function(e) {
-            if (e.key === "Enter") unlockEnvelope();
-        });
     </script>
 </body>
 </html>
